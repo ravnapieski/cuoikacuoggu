@@ -1,0 +1,216 @@
+html {
+  font-size: 16px; /* 1rem = 16px, 2rem = 32px */
+}
+
+:root {
+  --bgColor: #2e2e2e;
+  --bgColorDarker: #242424;
+  --bgColorLighter: #6c6c6c;
+  --textPrimary: #ff5d62;
+  --textPrimaryDarker: #c43f44;
+  --textSecondary: #f7f48b;
+  --primaryColor: #469cff;
+  --secondaryColor: #20d120;
+  --textTertiary: #696969;
+}
+@media (max-width: 600px) {
+  html {
+    font-size: 14px; /* Adjust rem scaling for smaller screens */
+  }
+}
+#page-container {
+  position: relative;
+  min-height: 100vh;
+}
+body {
+  font-family: 'Ubuntu', serif; /* or "Ubuntu Mono" */
+  background-color: var(--bgColor);
+  color: var(--textSecondary);
+
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+main {
+  width: 80vw;
+  margin: 5vh auto;
+  font-size: clamp(2vw, 1.6rem, 3vw);
+
+  flex-grow: 1;
+  padding-bottom: 2.5rem;
+}
+h1 {
+  color: var(--textPrimary);
+  font-size: clamp(1.5rem, 3vw, 5rem);
+}
+
+h1 svg {
+  width: 1em; /* 'em' to keep icon the same size as text */
+  fill: var(--textPrimary);
+}
+
+#toolbar {
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+}
+#buttons {
+  text-align: center;
+  width: 100%;
+}
+.hidden {
+  display: none;
+}
+#header {
+  display: grid;
+  grid-template-columns: 3fr 2fr 1fr;
+  margin: 1rem 0 1rem 0;
+  padding: 0.2rem 2rem;
+  font-size: clamp(1vw, 1rem, 3vw);
+  background-color: var(--bgColorDarker);
+  height: 1.5rem;
+  border-radius: 0.5rem;
+  align-items: center;
+}
+#info {
+  color: var(--textPrimary);
+}
+#time-selection {
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+  box-sizing: border-box;
+}
+.timeButton {
+  background-color: var(--bgColorDarker);
+  color: var(--bgColorLighter);
+  display: inline-block;
+  height: 1rem;
+  width: 1rem;
+  padding: 0;
+  text-align: center;
+  font-weight: 550; /* 100-900 */
+}
+.timeButton:hover {
+  color: var(--textPrimary);
+}
+.timeButton.active {
+  color: var(--textPrimary);
+}
+button {
+  background: var(--textPrimary);
+  color: var(--bgColor);
+  border: 0;
+  padding: 0.25rem 1rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  font-size: 1.5vw;
+}
+button#newGameButton:hover {
+  background: var(--textPrimaryDarker);
+}
+
+div#game {
+  line-height: 2rem;
+  height: 6rem;
+  overflow: hidden;
+  position: relative;
+}
+div#game:focus {
+  outline: 0;
+}
+#words {
+  filter: blur(0.25rem);
+  color: var(--textTertiary);
+  overflow-y: auto; /* Enables vertical scrolling */
+  /* max-height: 300px; /* Enables scrollbar */
+}
+#game:focus #words {
+  filter: blur(0);
+}
+#focus-error {
+  color: var(--textPrimary);
+  position: absolute;
+  inset: 0;
+  text-align: center;
+  padding-top: 2rem;
+  font-size: 1rem;
+  cursor: pointer;
+}
+#game:focus #focus-error {
+  display: none;
+}
+div.word {
+  display: inline-block;
+  font-family: 'Ubuntu Mono', serif;
+  margin: 0 5px;
+}
+.letter.correct {
+  color: var(--secondaryColor);
+}
+.letter.incorrect {
+  color: var(--textPrimary);
+}
+.letter.extra {
+  color: var(--textPrimaryDarker);
+}
+@keyframes blink {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+#cursor {
+  display: none;
+  width: 2px;
+  height: 1.5rem;
+  background: white;
+  position: fixed;
+  top: 198px;
+  left: 18px;
+  animation: blink 0.8s infinite;
+}
+#game:focus #cursor {
+  display: block;
+}
+#game.over #words {
+  filter: blur(0rem);
+  opacity: 0.6;
+}
+#game.over:focus #cursor {
+  display: none;
+}
+#game.over #focus-error {
+  display: none;
+}
+
+footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+
+  text-align: center;
+  color: var(--textPrimary);
+  font-size: 0.6rem;
+  margin-bottom: 1rem;
+}
+footer a {
+  color: var(--textPrimary);
+}
+footer a:hover {
+  color: var(--textPrimaryDarker);
+}
+
+footer p {
+  margin: 0.25rem 0;
+}
+
+/* Prevent anchor tag from overriding styles */
+#words .word a {
+  color: inherit;
+}
